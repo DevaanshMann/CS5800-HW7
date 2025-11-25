@@ -1,0 +1,48 @@
+@startuml Vending_Machine_State_Diagram
+
+title Vending Machine State Diagram\nBehavioral Design Patterns
+
+[*] --> IdleState
+
+state IdleState {
+  IdleState : Machine is ready
+  IdleState : No snack selected
+  IdleState : No money inserted
+}
+
+state WaitingForMoneyState {
+  WaitingForMoneyState : Snack selected
+  WaitingForMoneyState : Awaiting payment
+  WaitingForMoneyState : User can cancel
+}
+
+state DispensingSnackState {
+  DispensingSnackState : Processing transaction
+  DispensingSnackState : Executing Chain of Responsibility:
+  DispensingSnackState : 1. Validate snack
+  DispensingSnackState : 2. Check availability
+  DispensingSnackState : 3. Validate payment
+  DispensingSnackState : 4. Dispense
+}
+
+IdleState --> WaitingForMoneyState : selectSnack(snackName)
+WaitingForMoneyState --> DispensingSnackState : insertMoney(amount)
+WaitingForMoneyState --> IdleState : returnMoney()\n[Cancel transaction]
+DispensingSnackState --> IdleState : dispenseSnack()\n[Success or Fail]
+
+note right of IdleState
+  Initial State
+  Ready for customer
+end note
+
+note right of WaitingForMoneyState
+  Snack selection stored
+  Waiting for payment
+end note
+
+note right of DispensingSnackState
+  Chain of Responsibility executes here
+  Always returns to Idle when complete
+end note
+
+@enduml
