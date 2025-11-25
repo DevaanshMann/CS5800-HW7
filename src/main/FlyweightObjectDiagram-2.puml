@@ -1,0 +1,170 @@
+@startuml
+title Object Diagram - After 'H' and 'W' Properties Modified
+
+object ":Document" as doc {
+}
+
+object ":CharacterPropertiesFactory" as factory {
+  flyweights.size() = 5
+}
+
+object "cp1:CharacterProperties" as cp1 {
+  font = "Arial"
+  color = "Black"
+  size = 16
+}
+
+object "cp2:CharacterProperties" as cp2 {
+  font = "Arial"
+  color = "Black"
+  size = 14
+}
+
+object "cp3:CharacterProperties" as cp3 {
+  font = "Verdana"
+  color = "Blue"
+  size = 18
+}
+
+object "cp4:CharacterProperties" as cp4 {
+  font = "Verdana"
+  color = "Red"
+  size = 12
+}
+
+object "cp5:CharacterProperties" as cp5 {
+  font = "Calibri"
+  color = "Blue"
+  size = 99
+}
+
+object "char0:Character" as c0 {
+  character = 'H'
+}
+
+object "char1:Character" as c1 {
+  character = 'e'
+}
+
+object "char2:Character" as c2 {
+  character = 'l'
+}
+
+object "char3:Character" as c3 {
+  character = 'l'
+}
+
+object "char4:Character" as c4 {
+  character = 'o'
+}
+
+object "char5:Character" as c5 {
+  character = 'W'
+}
+
+object "char6:Character" as c6 {
+  character = 'o'
+}
+
+object "char7:Character" as c7 {
+  character = 'r'
+}
+
+object "char8:Character" as c8 {
+  character = 'l'
+}
+
+object "char9:Character" as c9 {
+  character = 'd'
+}
+
+object "char10:Character" as c10 {
+  character = 'C'
+}
+
+object "char11:Character" as c11 {
+  character = 'S'
+}
+
+object "char12:Character" as c12 {
+  character = '5'
+}
+
+object "char13:Character" as c13 {
+  character = '8'
+}
+
+object "char14:Character" as c14 {
+  character = '0'
+}
+
+object "char15:Character" as c15 {
+  character = '0'
+}
+
+doc --> factory
+doc --> c0
+doc --> c1
+doc --> c2
+doc --> c3
+doc --> c4
+doc --> c5
+doc --> c6
+doc --> c7
+doc --> c8
+doc --> c9
+doc --> c10
+doc --> c11
+doc --> c12
+doc --> c13
+doc --> c14
+doc --> c15
+
+factory --> cp1
+factory --> cp2
+factory --> cp3
+factory --> cp4
+factory --> cp5
+
+c0 --> cp5
+c1 --> cp2
+c2 --> cp2
+c3 --> cp2
+c4 --> cp2
+c5 --> cp5
+c6 --> cp2
+c7 --> cp2
+c8 --> cp2
+c9 --> cp2
+c10 --> cp3
+c11 --> cp3
+c12 --> cp4
+c13 --> cp4
+c14 --> cp4
+c15 --> cp4
+
+note right of cp1
+  No longer referenced
+  (orphaned flyweight)
+end note
+
+note right of cp2
+  Still shared by 'e','l','l','o','o','r','l','d'
+  (8 characters)
+end note
+
+note right of cp3
+  Shared by 'C' and 'S'
+end note
+
+note right of cp4
+  Shared by '5','8','0','0'
+  (4 characters)
+end note
+
+note right of cp5
+  NEW: Shared by 'H' and 'W'
+  (Calibri, Blue, 99)
+end note
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+title Flyweight Pattern - Class Diagram
+
+class Character {
+  - character: char
+  - characterProperty: CharacterProperties
+  + Character(character: char, characterProperty: CharacterProperties)
+  + setCharacter(character: char): void
+  + setCharacterProperty(characterProperty: CharacterProperties): void
+  + getCharacter(): char
+  + getFont(): String
+  + getColor(): String
+  + getSize(): int
+}
+
+class CharacterProperties {
+  - font: String
+  - color: String
+  - size: int
+  + CharacterProperties(font: String, color: String, size: int)
+  + getFont(): String
+  + getColor(): String
+  + getSize(): int
+}
+
+class CharacterPropertiesFactory {
+  - flyweights: Map<String, CharacterProperties>
+  + setAndRetrieveFlyweightCharacterProperties(font: String, color: String, size: int): CharacterProperties
+  + sizeOfMap(): int
+}
+
+class Document {
+  - characters: List<Character>
+  - propertiesFactory: CharacterPropertiesFactory
+  + addCharacter(c: char, font: String, color: String, size: int): void
+  + editCharacterProperties(index: int, font: String, color: String, size: int): void
+  + saveToFile(filename: String): void
+  + loadFromFile(filename: String): void
+}
+
+class Driver {
+  + {static} main(args: String[]): void
+}
+
+Character "1" --> "1" CharacterProperties : uses
+Document "1" *-- "0..*" Character : contains
+Document "1" *-- "1" CharacterPropertiesFactory : owns
+CharacterPropertiesFactory "1" o-- "0..*" CharacterProperties : manages/creates
+Driver ..> Document : uses
+
+@enduml
