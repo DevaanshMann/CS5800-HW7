@@ -27,7 +27,7 @@ public class SnackValidationHandler extends SnackDispenseHandler {
 
         request.setSnack(snack);
         System.out.println("Snack found: " + snack.getName());
-        return passToNext(request);
+        return passToNextHandler(request);
     }
 }
 

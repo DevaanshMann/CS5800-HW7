@@ -12,7 +12,6 @@ public class DispenseHandler extends SnackDispenseHandler {
         Snack snack = request.getSnack();
         double change = request.getMoneyInserted() - snack.getPrice();
 
-
         snack.decrementQuantity();
         System.out.println(snack.getName() + " dispensed!");
 
@@ -20,6 +19,6 @@ public class DispenseHandler extends SnackDispenseHandler {
             System.out.println("Returning change: $" + String.format("%.2f", change));
         }
 
-        return passToNext(request);
+        return passToNextHandler(request);
     }
 }

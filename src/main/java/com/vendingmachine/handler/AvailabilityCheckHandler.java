@@ -19,6 +19,6 @@ public class AvailabilityCheckHandler extends SnackDispenseHandler {
         }
 
         System.out.println("    In stock! Quantity: " + snack.getQuantity());
-        return passToNext(request);
+        return passToNextHandler(request);
     }
 }

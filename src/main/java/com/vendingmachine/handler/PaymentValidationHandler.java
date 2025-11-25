@@ -26,6 +26,6 @@ public class PaymentValidationHandler extends SnackDispenseHandler {
 
         System.out.println(String.format("    Payment sufficient! Required: $%.2f, Inserted: $%.2f",
                 required, inserted));
-        return passToNext(request);
+        return passToNextHandler(request);
     }
 }

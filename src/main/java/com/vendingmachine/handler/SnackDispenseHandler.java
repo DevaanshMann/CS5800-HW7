@@ -11,7 +11,7 @@ public abstract class SnackDispenseHandler {
 
     public abstract boolean handleRequest(DispenseRequest request);
 
-    protected boolean passToNext(DispenseRequest request) {
+    protected boolean passToNextHandler(DispenseRequest request) {
         if (nextHandler != null) {
             return nextHandler.handleRequest(request);
         }
