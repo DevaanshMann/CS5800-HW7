@@ -6,7 +6,7 @@ import com.vendingmachine.config.VendingMachine;
 public class VendingMachineDriver {
     public static void main(String[] args) {
         System.out.println("================================================================");
-        System.out.println("                         VENDING MACHINE ");
+        System.out.println("                    SNACK VENDING MACHINE ");
         System.out.println("================================================================\n");
 
         VendingMachine vendingMachine = new VendingMachine();
@@ -89,16 +89,5 @@ public class VendingMachineDriver {
         vendingMachine.insertMoney(2.00);
 
         vendingMachine.displayInventory();
-
-        System.out.println("\n================================================================");
-        System.out.println("                     DEMO COMPLETED");
-        System.out.println("");
-        System.out.println("  Chain of Responsibility (4 handlers):");
-        System.out.println("    1. Snack Validation -> 2. Availability Check ->");
-        System.out.println("    3. Payment Validation -> 4. Dispense");
-        System.out.println("");
-        System.out.println("  State Pattern (3 states):");
-        System.out.println("    Idle -> WaitingForMoney -> DispensingSnack -> Idle");
-        System.out.println("================================================================");
     }
 }
