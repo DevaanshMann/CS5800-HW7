@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit tests for VendingMachine class
- */
 public class VendingMachineTest {
 
     private VendingMachine machine;
@@ -19,7 +16,7 @@ public class VendingMachineTest {
         machine = new VendingMachine();
         machine.addSnack(new Snack("Coke", 1.50, 5));
         machine.addSnack(new Snack("Pepsi", 1.50, 3));
-        machine.addSnack(new Snack("Cheetos", 2.00, 0)); // Out of stock
+        machine.addSnack(new Snack("Cheetos", 2.00, 0));
         machine.initializeDispenseChain();
     }
 
@@ -103,10 +100,10 @@ public class VendingMachineTest {
         int initialQuantity = machine.getInventory().get("pepsi").getQuantity();
 
         machine.selectSnack("Pepsi");
-        machine.insertMoney(1.00); // Not enough
+        machine.insertMoney(1.00);
 
         int finalQuantity = machine.getInventory().get("pepsi").getQuantity();
-        assertEquals(initialQuantity, finalQuantity); // Should not change
+        assertEquals(initialQuantity, finalQuantity);
         assertTrue(machine.getState() instanceof IdleState);
     }
 
@@ -123,17 +120,14 @@ public class VendingMachineTest {
 
     @Test
     public void testMultipleTransactions() {
-        // First transaction
         machine.selectSnack("Coke");
         machine.insertMoney(1.50);
         assertEquals(4, machine.getInventory().get("coke").getQuantity());
 
-        // Second transaction
         machine.selectSnack("Pepsi");
         machine.insertMoney(2.00);
         assertEquals(2, machine.getInventory().get("pepsi").getQuantity());
 
-        // Third transaction
         machine.selectSnack("Coke");
         machine.insertMoney(1.50);
         assertEquals(3, machine.getInventory().get("coke").getQuantity());
@@ -141,7 +135,6 @@ public class VendingMachineTest {
 
     @Test
     public void testInventoryDepletion() {
-        // Deplete Pepsi (3 in stock)
         for (int i = 0; i < 3; i++) {
             machine.selectSnack("Pepsi");
             machine.insertMoney(1.50);
@@ -149,7 +142,6 @@ public class VendingMachineTest {
 
         assertEquals(0, machine.getInventory().get("pepsi").getQuantity());
 
-        // Try to buy when out of stock
         machine.selectSnack("Pepsi");
         machine.insertMoney(1.50);
 

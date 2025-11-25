@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit tests for State Pattern implementation
- */
 public class StatePatternTest {
 
     private VendingMachine machine;
@@ -17,12 +14,10 @@ public class StatePatternTest {
     public void setUp() {
         machine = new VendingMachine();
 
-        // Add snacks
         machine.addSnack(new Snack("Coke", 1.50, 5));
-        machine.addSnack(new Snack("Pepsi", 1.50, 0)); // Out of stock
+        machine.addSnack(new Snack("Pepsi", 1.50, 0));
         machine.addSnack(new Snack("Cheetos", 2.00, 3));
 
-        // Initialize chain
         machine.initializeDispenseChain();
     }
 
@@ -41,7 +36,6 @@ public class StatePatternTest {
 
     @Test
     public void testIdleState_InsertMoneyWithoutSelection() {
-        // Should remain in idle state
         machine.insertMoney(1.50);
 
         assertTrue(machine.getState() instanceof IdleState);
@@ -55,7 +49,6 @@ public class StatePatternTest {
 
         machine.insertMoney(1.50);
 
-        // Should transition to Idle after dispensing
         assertTrue(machine.getState() instanceof IdleState);
         assertNull(machine.getSelectedSnack());
         assertEquals(0.0, machine.getInsertedMoney(), 0.01);
@@ -66,20 +59,17 @@ public class StatePatternTest {
         machine.selectSnack("Coke");
         String firstSnack = machine.getSelectedSnack();
 
-        machine.selectSnack("Pepsi"); // Try to select another
+        machine.selectSnack("Pepsi");
 
-        // Should remain with first selection
         assertEquals(firstSnack, machine.getSelectedSnack());
         assertTrue(machine.getState() instanceof WaitingForMoneyState);
     }
 
     @Test
     public void testSuccessfulTransaction_StateTransitions() {
-        // Idle -> select snack -> WaitingForMoney
         machine.selectSnack("Coke");
         assertTrue(machine.getState() instanceof WaitingForMoneyState);
 
-        // WaitingForMoney -> insert money -> Dispensing -> Idle
         machine.insertMoney(1.50);
         assertTrue(machine.getState() instanceof IdleState);
     }
@@ -87,9 +77,8 @@ public class StatePatternTest {
     @Test
     public void testFailedTransaction_InsufficientMoney() {
         machine.selectSnack("Cheetos");
-        machine.insertMoney(1.00); // Not enough (needs $2.00)
+        machine.insertMoney(1.00);
 
-        // Should return to idle
         assertTrue(machine.getState() instanceof IdleState);
         assertNull(machine.getSelectedSnack());
         assertEquals(0.0, machine.getInsertedMoney(), 0.01);
@@ -100,7 +89,6 @@ public class StatePatternTest {
         machine.selectSnack("Pepsi");
         machine.insertMoney(1.50);
 
-        // Should return to idle
         assertTrue(machine.getState() instanceof IdleState);
         assertNull(machine.getSelectedSnack());
         assertEquals(0.0, machine.getInsertedMoney(), 0.01);
@@ -109,7 +97,7 @@ public class StatePatternTest {
     @Test
     public void testReturnMoney_FromWaitingState() {
         machine.selectSnack("Coke");
-        machine.setInsertedMoney(1.50); // Manually set money
+        machine.setInsertedMoney(1.50);
 
         assertTrue(machine.getState() instanceof WaitingForMoneyState);
 

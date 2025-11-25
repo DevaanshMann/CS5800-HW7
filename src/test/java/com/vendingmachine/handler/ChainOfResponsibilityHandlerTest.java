@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * JUnit tests for Chain of Responsibility handlers
- */
 public class ChainOfResponsibilityHandlerTest {
 
     private Map<String, Snack> inventory;
@@ -18,13 +15,11 @@ public class ChainOfResponsibilityHandlerTest {
 
     @BeforeEach
     public void setUp() {
-        // Create inventory
         inventory = new HashMap<>();
         inventory.put("coke", new Snack("Coke", 1.50, 5));
-        inventory.put("pepsi", new Snack("Pepsi", 1.50, 0)); // Out of stock
+        inventory.put("pepsi", new Snack("Pepsi", 1.50, 0));
         inventory.put("cheetos", new Snack("Cheetos", 2.00, 3));
 
-        // Build the chain
         SnackValidationHandler validationHandler = new SnackValidationHandler(inventory);
         AvailabilityCheckHandler availabilityHandler = new AvailabilityCheckHandler();
         PaymentValidationHandler paymentHandler = new PaymentValidationHandler();
@@ -45,7 +40,7 @@ public class ChainOfResponsibilityHandlerTest {
 
         assertTrue(result);
         assertTrue(request.isValid());
-        assertEquals(4, inventory.get("coke").getQuantity()); // Should be decremented
+        assertEquals(4, inventory.get("coke").getQuantity());
     }
 
     @Test
@@ -79,7 +74,7 @@ public class ChainOfResponsibilityHandlerTest {
         assertFalse(result);
         assertFalse(request.isValid());
         assertTrue(request.getErrorMessage().contains("Insufficient funds"));
-        assertEquals(3, inventory.get("cheetos").getQuantity()); // Should NOT be decremented
+        assertEquals(3, inventory.get("cheetos").getQuantity());
     }
 
     @Test

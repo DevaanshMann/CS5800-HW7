@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit tests for Snack class
- */
 public class SnackTest {
 
     private Snack snack;
@@ -45,7 +42,7 @@ public class SnackTest {
     public void testDecrementQuantity_WhenZero() {
         Snack emptySnack = new Snack("Pepsi", 1.50, 0);
         emptySnack.decrementQuantity();
-        assertEquals(0, emptySnack.getQuantity()); // Should remain 0
+        assertEquals(0, emptySnack.getQuantity());
     }
 
     @Test

@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * JUnit tests for DispenseRequest class
- */
 public class DispenseRequestTest {
 
     private DispenseRequest request;
@@ -22,7 +19,7 @@ public class DispenseRequestTest {
     public void testRequestCreation() {
         assertEquals("Coke", request.getSnackName());
         assertEquals(1.50, request.getMoneyInserted(), 0.01);
-        assertTrue(request.isValid()); // Should be valid by default
+        assertTrue(request.isValid());
         assertEquals("", request.getErrorMessage());
     }
 
